@@ -11,17 +11,21 @@ Page({
     progressPercent: 0,
     // 自定义分钟数（字符串，绑定到 input）
     customMinutes: '',
+    // 选中的时长（分钟），用于 UI 高亮和显示
+    selectedMinutes: 25,
   },
 
   onLoad() {
     // 初始化番茄钟（默认25分钟）
     pomodoro.init(25 * 60 * 1000);
+    this.setData({ selectedMinutes: 25 });
     this._updateDisplay();
   },
 
   onShow() {
     // 页面显示时，重新初始化并更新显示
     pomodoro.init(25 * 60 * 1000);
+    this.setData({ selectedMinutes: 25 });
     this._updateDisplay();
     
     // 启动 UI 刷新定时器（不是计时的真实来源）
@@ -132,7 +136,7 @@ Page({
     const minutes = Number(e.currentTarget.dataset.minutes);
     if (!minutes || minutes <= 0) return;
     pomodoro.setDuration(minutes * 60 * 1000);
-    this.setData({ customMinutes: '' });
+    this.setData({ customMinutes: '', selectedMinutes: minutes });
     this._updateDisplay();
   },
 
@@ -154,6 +158,7 @@ Page({
       return;
     }
     pomodoro.setDuration(v * 60 * 1000);
+    this.setData({ selectedMinutes: v });
     this._updateDisplay();
   },
 });

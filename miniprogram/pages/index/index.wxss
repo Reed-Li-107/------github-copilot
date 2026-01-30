@@ -408,3 +408,84 @@ page {
     inset 0 0 25rpx rgba(255, 0, 255, 0.2);
   transform: scale(0.98);
 }
+
+/* 时长选择控件样式 */
+.duration-select {
+  width: 100%;
+  max-width: 360rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  align-items: stretch;
+}
+.duration-label {
+  color: #ffccff;
+  font-size: 22rpx;
+  margin-bottom: 4rpx;
+  text-align: left;
+}
+.duration-buttons {
+  display: flex;
+  gap: 10rpx;
+  justify-content: space-between;
+}
+.dur-btn {
+  flex: 1;
+  height: 56rpx;
+  border-radius: 8rpx;
+  background: rgba(255,255,255,0.03);
+  border: 1rpx solid rgba(255,255,255,0.06);
+  color: #00ffff;
+  font-size: 20rpx;
+}
+.dur-btn:active { transform: scale(0.98); }
+.duration-custom {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 6rpx;
+}
+.dur-input {
+  flex: 1;
+  height: 48rpx;
+  padding: 0 10rpx;
+  border-radius: 8rpx;
+  background: rgba(0,0,0,0.25);
+  color: #00ffff;
+  border: 1rpx solid rgba(0,255,255,0.08);
+}
+.dur-confirm {
+  width: 88rpx;
+  height: 48rpx;
+  border-radius: 8rpx;
+  background: linear-gradient(90deg,#00ff88,#00ffff);
+  color: #001; /* dark text */
+  font-weight: bold;
+}
+
+@media (max-width: 360px) {
+  .timer-display { font-size: 110rpx; }
+  .button-group { max-width: 260rpx; }
+  .duration-select { max-width: 280rpx; }
+}
+
+  /* 高亮选中状态 */
+  .dur-btn.active {
+    background: linear-gradient(90deg,#00ff88,#00ffff);
+    color: #001;
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 0 18rpx rgba(0,255,200,0.35);
+  }
+
+  .current-duration {
+    color: #ffd1ff;
+    font-size: 20rpx;
+    margin: 6rpx 0;
+    text-align: left;
+  }
+
+  .duration-select {
+    padding: 12rpx;
+    border-radius: 12rpx;
+    background: rgba(255,255,255,0.02);
+    border: 1rpx solid rgba(255,255,255,0.03);
+  }

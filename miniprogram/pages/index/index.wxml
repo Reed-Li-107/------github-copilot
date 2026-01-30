@@ -37,11 +37,15 @@
       <!-- 时长选择 -->
       <view class="duration-select">
         <text class="duration-label">时长：</text>
+
+        <text class="current-duration">当前：{{selectedMinutes}} 分钟</text>
+
         <view class="duration-buttons">
-          <button class="dur-btn" bindtap="onSelectDuration" data-minutes="5">5 分钟</button>
-          <button class="dur-btn" bindtap="onSelectDuration" data-minutes="15">15 分钟</button>
-          <button class="dur-btn" bindtap="onSelectDuration" data-minutes="20">20 分钟</button>
+          <button class="dur-btn {{selectedMinutes==5? 'active': ''}}" bindtap="onSelectDuration" data-minutes="5">5 分钟</button>
+          <button class="dur-btn {{selectedMinutes==15? 'active': ''}}" bindtap="onSelectDuration" data-minutes="15">15 分钟</button>
+          <button class="dur-btn {{selectedMinutes==20? 'active': ''}}" bindtap="onSelectDuration" data-minutes="20">20 分钟</button>
         </view>
+
         <view class="duration-custom">
           <input class="dur-input" type="number" placeholder="自定义（分钟）" value="{{customMinutes}}" bindinput="onCustomMinutesInput" />
           <button class="dur-confirm" bindtap="onCustomConfirm">设置</button>
