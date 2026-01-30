@@ -33,26 +33,24 @@
       <view class="timer-progress-bar">
         <view class="timer-progress" style="width: {{progress * 100}}%"></view>
       </view>
-
-      <!-- 时长选择 -->
+    </view>
+    
+    <!-- 时长选择面板（移出 timer-box，避免被遮挡） -->
+    <view class="duration-panel">
       <view class="duration-select">
         <text class="duration-label">时长：</text>
-
         <text class="current-duration">当前：{{selectedMinutes}} 分钟</text>
-
         <view class="duration-buttons">
           <button class="dur-btn {{selectedMinutes==5? 'active': ''}}" bindtap="onSelectDuration" data-minutes="5">5 分钟</button>
           <button class="dur-btn {{selectedMinutes==15? 'active': ''}}" bindtap="onSelectDuration" data-minutes="15">15 分钟</button>
           <button class="dur-btn {{selectedMinutes==20? 'active': ''}}" bindtap="onSelectDuration" data-minutes="20">20 分钟</button>
         </view>
-
         <view class="duration-custom">
           <input class="dur-input" type="number" placeholder="自定义（分钟）" value="{{customMinutes}}" bindinput="onCustomMinutesInput" />
           <button class="dur-confirm" bindtap="onCustomConfirm">设置</button>
         </view>
       </view>
     </view>
-    
     <!-- 状态指示器 -->
     <view class="status-indicator">
       <view class="status-dot" wx:if="{{status === 'running'}}"></view>
