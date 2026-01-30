@@ -472,6 +472,23 @@ page {
   .duration-select { max-width: 280rpx; }
 }
 
+/* 小屏幕（竖屏）响应式：时长面板改为全宽内联 */
+@media (max-height: 600px) or (max-width: 380px) {
+  .timer-box {
+    padding-bottom: 60rpx; /* reduce bottom padding when panel is inline */
+  }
+  .duration-panel-inner {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    bottom: auto;
+    left: auto;
+    margin-top: 16rpx;
+    box-shadow: none;
+  }
+}
+
   /* 高亮选中状态 */
   .dur-btn.active {
     background: linear-gradient(90deg,#00ff88,#00ffff);
