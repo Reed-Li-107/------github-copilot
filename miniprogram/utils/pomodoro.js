@@ -188,3 +188,19 @@ module.exports = {
   getSnapshot,
   clearStorage,
 };
+
+/**
+ * 设置新的倒计时时长（毫秒），并重置为 idle 状态
+ * 用例：用户在 UI 上选择 5/15/20 分钟或自定义时长后调用
+ */
+function setDuration(durationMs) {
+  if (typeof durationMs !== 'number' || durationMs <= 0) return;
+  state.durationMs = durationMs;
+  state.status = 'idle';
+  state.startedAt = null;
+  state.pausedAt = null;
+  state.accPausedMs = 0;
+  _saveState();
+}
+
+module.exports.setDuration = setDuration;

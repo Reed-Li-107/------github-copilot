@@ -33,6 +33,20 @@
       <view class="timer-progress-bar">
         <view class="timer-progress" style="width: {{progress * 100}}%"></view>
       </view>
+
+      <!-- 时长选择 -->
+      <view class="duration-select">
+        <text class="duration-label">时长：</text>
+        <view class="duration-buttons">
+          <button class="dur-btn" bindtap="onSelectDuration" data-minutes="5">5 分钟</button>
+          <button class="dur-btn" bindtap="onSelectDuration" data-minutes="15">15 分钟</button>
+          <button class="dur-btn" bindtap="onSelectDuration" data-minutes="20">20 分钟</button>
+        </view>
+        <view class="duration-custom">
+          <input class="dur-input" type="number" placeholder="自定义（分钟）" value="{{customMinutes}}" bindinput="onCustomMinutesInput" />
+          <button class="dur-confirm" bindtap="onCustomConfirm">设置</button>
+        </view>
+      </view>
     </view>
     
     <!-- 状态指示器 -->

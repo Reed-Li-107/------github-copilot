@@ -9,6 +9,8 @@ Page({
     status: 'idle', // 'idle' | 'running' | 'paused'
     progress: 0,
     progressPercent: 0,
+    // 自定义分钟数（字符串，绑定到 input）
+    customMinutes: '',
   },
 
   onLoad() {
@@ -119,6 +121,39 @@ Page({
   onResetClick() {
     try { sound.playClick(); } catch (e) {}
     pomodoro.reset();
+    this._updateDisplay();
+  },
+
+  /**
+   * 选择预设时长（分钟）
+   */
+  onSelectDuration(e) {
+    try { sound.playClick(); } catch (err) {}
+    const minutes = Number(e.currentTarget.dataset.minutes);
+    if (!minutes || minutes <= 0) return;
+    pomodoro.setDuration(minutes * 60 * 1000);
+    this.setData({ customMinutes: '' });
+    this._updateDisplay();
+  },
+
+  /**
+   * 自定义时长输入绑定
+   */
+  onCustomMinutesInput(e) {
+    this.setData({ customMinutes: e.detail.value });
+  },
+
+  /**
+   * 确认自定义时长（分钟）并应用
+   */
+  onCustomConfirm() {
+    try { sound.playClick(); } catch (err) {}
+    const v = Number(this.data.customMinutes);
+    if (!v || v <= 0) {
+      wx.showToast({ title: '请输入有效分钟数', icon: 'none' });
+      return;
+    }
+    pomodoro.setDuration(v * 60 * 1000);
     this._updateDisplay();
   },
 });
