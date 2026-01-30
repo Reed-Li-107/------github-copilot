@@ -14,6 +14,7 @@ let state = {
   pausedAt: null,           // 暂停开始时的时间戳（ms）
   accPausedMs: 0,           // 累计暂停时长（ms）
   lastSavedAt: null,        // 最后保存的时刻
+  selectedMinutes: DEFAULT_DURATION_MS / 60000,
 };
 
 /**
@@ -26,6 +27,8 @@ function init(durationMs = DEFAULT_DURATION_MS) {
     if (stored && typeof stored === 'object') {
       state = stored;
       state.durationMs = state.durationMs || durationMs;
+      // ensure selectedMinutes exists
+      state.selectedMinutes = state.selectedMinutes || Math.round(state.durationMs / 60000);
       
       // 如果恢复时是运行状态，需要继续累计时间
       if (state.status === 'running' && state.startedAt) {
@@ -54,6 +57,7 @@ function init(durationMs = DEFAULT_DURATION_MS) {
       pausedAt: null,
       accPausedMs: 0,
       lastSavedAt: null,
+      selectedMinutes: Math.round(durationMs / 60000),
     };
   }
 }
@@ -200,7 +204,16 @@ function setDuration(durationMs) {
   state.startedAt = null;
   state.pausedAt = null;
   state.accPausedMs = 0;
+  // persist selectedMinutes as well for UI restore
+  state.selectedMinutes = Math.round(durationMs / 60000);
   _saveState();
 }
 
 module.exports.setDuration = setDuration;
+
+/** 返回内部状态快照（不破坏封装） */
+function getState() {
+  return state;
+}
+
+module.exports.getState = getState;

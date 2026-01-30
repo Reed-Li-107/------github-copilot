@@ -18,14 +18,33 @@ Page({
   onLoad() {
     // 初始化番茄钟（默认25分钟）
     pomodoro.init(25 * 60 * 1000);
-    this.setData({ selectedMinutes: 25 });
+    // restore selected minutes from pomodoro state if available
+    try {
+      const s = pomodoro.getState();
+      if (s && s.selectedMinutes) {
+        this.setData({ selectedMinutes: s.selectedMinutes });
+      } else {
+        this.setData({ selectedMinutes: 25 });
+      }
+    } catch (e) {
+      this.setData({ selectedMinutes: 25 });
+    }
     this._updateDisplay();
   },
 
   onShow() {
     // 页面显示时，重新初始化并更新显示
     pomodoro.init(25 * 60 * 1000);
-    this.setData({ selectedMinutes: 25 });
+    try {
+      const s = pomodoro.getState();
+      if (s && s.selectedMinutes) {
+        this.setData({ selectedMinutes: s.selectedMinutes });
+      } else {
+        this.setData({ selectedMinutes: 25 });
+      }
+    } catch (e) {
+      this.setData({ selectedMinutes: 25 });
+    }
     this._updateDisplay();
     
     // 启动 UI 刷新定时器（不是计时的真实来源）

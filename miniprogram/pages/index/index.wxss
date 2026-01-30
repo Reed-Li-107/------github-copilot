@@ -121,6 +121,7 @@ page {
   backdrop-filter: blur(10px);
   animation: borderPulse 3s ease-in-out infinite;
   overflow: visible; /* allow child overlays (if any) to be visible */
+  padding-bottom: 120rpx; /* make room for inner floating panel */
 }
 
 @keyframes borderPulse {
@@ -499,4 +500,16 @@ page {
     justify-content: center;
     margin-top: 12rpx;
     z-index: 20;
+  }
+
+  /* 内置浮动面板（位于 timer-box 内） */
+  .duration-panel-inner {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10rpx;
+    width: calc(100% - 60rpx);
+    max-width: 520rpx;
+    z-index: 30;
+    box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.6);
   }
