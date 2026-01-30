@@ -1,0 +1,73 @@
+<!--index.wxml-->
+<view class="pomodoro-container">
+  <!-- 背景装饰线 -->
+  <view class="bg-grid"></view>
+  <view class="bg-lines"></view>
+  
+  <!-- 主体内容 -->
+  <view class="content-wrapper">
+    <!-- 标题 -->
+    <view class="pomodoro-title">
+      <text class="title-text">番茄</text>
+      <text class="title-subtext">FOCUS_TIMER</text>
+    </view>
+    
+    <!-- 计时器容器 -->
+    <view class="timer-box">
+      <!-- 外框震晕 -->
+      <view class="timer-border-glow"></view>
+      
+      <!-- 计时数字 -->
+      <view class="timer-wrapper">
+        <view class="timer-display">{{timeDisplay}}</view>
+        <view class="timer-glow"></view>
+      </view>
+      
+      <!-- 圆形进度 -->
+      <view class="circular-progress">
+        <canvas class="progress-canvas" id="progressCanvas"></canvas>
+        <view class="progress-text">{{progressPercent}}%</view>
+      </view>
+      
+      <!-- 条形进度条 -->
+      <view class="timer-progress-bar">
+        <view class="timer-progress" style="width: {{progress * 100}}%"></view>
+      </view>
+    </view>
+    
+    <!-- 状态指示器 -->
+    <view class="status-indicator">
+      <view class="status-dot" wx:if="{{status === 'running'}}"></view>
+      <text class="status-text">{{ status === 'idle' ? '[ IDLE ]' : (status === 'running' ? '[ RUNNING ]' : '[ PAUSED ]') }}</text>
+    </view>
+    
+    <!-- 按钮组 -->
+    <view class="button-group">
+      <!-- 开始/继续按钮 -->
+      <button 
+        wx:if="{{status !== 'running'}}"
+        class="btn btn-start"
+        bindtap="onStartClick">
+        <view class="btn-shimmer"></view>
+        <text class="btn-text">{{ status === 'idle' ? '▶ START' : '▶ RESUME' }}</text>
+      </button>
+      
+      <!-- 暂停按钮 -->
+      <button 
+        wx:if="{{status === 'running'}}"
+        class="btn btn-pause"
+        bindtap="onPauseClick">
+        <view class="btn-shimmer"></view>
+        <text class="btn-text">⏸ PAUSE</text>
+      </button>
+      
+      <!-- 重置按钮 -->
+      <button 
+        class="btn btn-reset"
+        bindtap="onResetClick">
+        <view class="btn-shimmer"></view>
+        <text class="btn-text">↻ RESET</text>
+      </button>
+    </view>
+  </view>
+</view>

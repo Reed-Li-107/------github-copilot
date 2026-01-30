@@ -1,0 +1,410 @@
+/**index.wxss - Cyberpunk Neon Style **/
+
+page {
+  background: #0a0e27;
+  background-image: 
+    linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+  background-size: 60rpx 60rpx;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  color: #00ffff;
+}
+
+/* 容器 */
+.pomodoro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 40rpx 30rpx;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景装饰效果 */
+.bg-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(0deg, transparent 24%, rgba(255, 0, 255, 0.3) 25%, rgba(255, 0, 255, 0.3) 26%, transparent 27%, transparent 74%, rgba(255, 0, 255, 0.3) 75%, rgba(255, 0, 255, 0.3) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.3) 25%, rgba(0, 255, 255, 0.3) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.3) 75%, rgba(0, 255, 255, 0.3) 76%, transparent 77%, transparent);
+  background-size: 50rpx 50rpx;
+  z-index: 0;
+}
+
+.bg-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 49%, rgba(0, 255, 255, 0.08) 49%, rgba(0, 255, 255, 0.08) 51%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(255, 0, 255, 0.08) 49%, rgba(255, 0, 255, 0.08) 51%, transparent 51%);
+  background-size: 100rpx 100rpx;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(10rpx); }
+}
+
+/* 内容包装器 */
+.content-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40rpx;
+}
+
+/* 标题样式 */
+.pomodoro-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.title-text {
+  font-size: 64rpx;
+  font-weight: 900;
+  color: #00ffff;
+  text-shadow: 
+    0 0 10rpx #00ffff,
+    0 0 20rpx #00ffff,
+    0 0 30rpx #00cccc,
+    0 0 40rpx rgba(0, 255, 255, 0.5);
+  letter-spacing: 4rpx;
+  font-family: 'Courier New', monospace;
+}
+
+.title-subtext {
+  font-size: 18rpx;
+  color: #ff00ff;
+  letter-spacing: 3rpx;
+  text-shadow: 0 0 10rpx #ff00ff;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* 计时器容器 */
+.timer-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30rpx;
+  padding: 60rpx 40rpx;
+  background: rgba(0, 20, 40, 0.8);
+  border: 3rpx solid #00ffff;
+  border-radius: 20rpx;
+  box-shadow: 
+    0 0 20rpx rgba(0, 255, 255, 0.3),
+    inset 0 0 20rpx rgba(0, 255, 255, 0.1),
+    0 0 40rpx rgba(255, 0, 255, 0.2);
+  backdrop-filter: blur(10px);
+  animation: borderPulse 3s ease-in-out infinite;
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20rpx rgba(0, 255, 255, 0.3),
+      inset 0 0 20rpx rgba(0, 255, 255, 0.1),
+      0 0 40rpx rgba(255, 0, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 30rpx rgba(0, 255, 255, 0.5),
+      inset 0 0 30rpx rgba(0, 255, 255, 0.2),
+      0 0 60rpx rgba(255, 0, 255, 0.4);
+  }
+}
+
+.timer-border-glow {
+  position: absolute;
+  top: -3rpx;
+  left: -3rpx;
+  right: -3rpx;
+  bottom: -3rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+  opacity: 0;
+  z-index: -1;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.3; }
+}
+
+/* 计时器显示 */
+.timer-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-display {
+  font-size: 140rpx;
+  font-weight: 300;
+  color: #00ffff;
+  line-height: 1;
+  letter-spacing: 8rpx;
+  font-family: 'Courier New', monospace;
+  text-shadow: 
+    0 0 10rpx #00ffff,
+    0 0 20rpx #00ffff,
+    0 0 30rpx #00ff88,
+    0 0 40rpx rgba(0, 255, 136, 0.5);
+  position: relative;
+  z-index: 2;
+  animation: glitch 0.3s ease-in-out infinite;
+}
+
+@keyframes glitch {
+  0%, 100% {
+    text-shadow: 
+      0 0 10rpx #00ffff,
+      0 0 20rpx #00ffff,
+      0 0 30rpx #00ff88,
+      0 0 40rpx rgba(0, 255, 136, 0.5);
+  }
+  50% {
+    text-shadow: 
+      0 0 15rpx #00ffff,
+      0 0 30rpx #00ffff,
+      0 0 40rpx #00ff88,
+      0 0 50rpx rgba(0, 255, 136, 0.7);
+  }
+}
+
+.timer-glow {
+  position: absolute;
+  width: 200rpx;
+  height: 200rpx;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40rpx);
+  z-index: 0;
+  animation: radiationPulse 2s ease-in-out infinite;
+}
+
+@keyframes radiationPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* 圆形进度 */
+.circular-progress {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-canvas {
+  position: absolute;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  color: #ff00ff;
+  font-weight: bold;
+  text-shadow: 0 0 10rpx #ff00ff;
+  letter-spacing: 2rpx;
+  font-family: 'Courier New', monospace;
+}
+
+/* 线性进度条 */
+.timer-progress-bar {
+  width: 280rpx;
+  height: 12rpx;
+  background: rgba(0, 50, 100, 0.8);
+  border: 2rpx solid #ff00ff;
+  border-radius: 6rpx;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 
+    inset 0 0 10rpx rgba(0, 255, 255, 0.2),
+    0 0 15rpx rgba(255, 0, 255, 0.3);
+}
+
+.timer-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #00ffff, #ff00ff);
+  border-radius: 6rpx;
+  transition: width 0.3s ease-out;
+  box-shadow: 
+    0 0 15rpx #00ffff,
+    0 0 10rpx #ff00ff,
+    inset 0 0 10rpx rgba(255, 255, 255, 0.2);
+}
+
+/* 状态指示器 */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #ff00ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10rpx #ff00ff;
+  animation: blinkingDot 1s ease-in-out infinite;
+}
+
+@keyframes blinkingDot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10rpx #ff00ff;
+  }
+  50% {
+    opacity: 0.3;
+    box-shadow: 0 0 20rpx #ff00ff;
+  }
+}
+
+.status-text {
+  font-size: 20rpx;
+  color: #00ffff;
+  letter-spacing: 2rpx;
+  text-shadow: 0 0 8rpx #00ffff;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* 按钮组 */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  width: 100%;
+  max-width: 300rpx;
+}
+
+.btn {
+  width: 100%;
+  height: 80rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  border: 2rpx solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2rpx;
+}
+
+.btn-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  opacity: 0.6;
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+.btn:active .btn-shimmer {
+  left: 100%;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* 开始按钮 */
+.btn-start {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: #00ff88;
+  color: #00ff88;
+  text-shadow: 0 0 10rpx #00ff88;
+  box-shadow: 
+    0 0 15rpx rgba(0, 255, 136, 0.3),
+    inset 0 0 15rpx rgba(0, 255, 136, 0.1);
+}
+
+.btn-start:active {
+  background: rgba(0, 255, 136, 0.3);
+  box-shadow: 
+    0 0 25rpx rgba(0, 255, 136, 0.5),
+    inset 0 0 25rpx rgba(0, 255, 136, 0.2);
+  transform: scale(0.98);
+}
+
+/* 暂停按钮 */
+.btn-pause {
+  background: rgba(255, 153, 0, 0.1);
+  border-color: #ff9900;
+  color: #ff9900;
+  text-shadow: 0 0 10rpx #ff9900;
+  box-shadow: 
+    0 0 15rpx rgba(255, 153, 0, 0.3),
+    inset 0 0 15rpx rgba(255, 153, 0, 0.1);
+}
+
+.btn-pause:active {
+  background: rgba(255, 153, 0, 0.3);
+  box-shadow: 
+    0 0 25rpx rgba(255, 153, 0, 0.5),
+    inset 0 0 25rpx rgba(255, 153, 0, 0.2);
+  transform: scale(0.98);
+}
+
+/* 重置按钮 */
+.btn-reset {
+  background: rgba(255, 0, 255, 0.1);
+  border-color: #ff00ff;
+  color: #ff00ff;
+  text-shadow: 0 0 10rpx #ff00ff;
+  box-shadow: 
+    0 0 15rpx rgba(255, 0, 255, 0.3),
+    inset 0 0 15rpx rgba(255, 0, 255, 0.1);
+}
+
+.btn-reset:active {
+  background: rgba(255, 0, 255, 0.3);
+  box-shadow: 
+    0 0 25rpx rgba(255, 0, 255, 0.5),
+    inset 0 0 25rpx rgba(255, 0, 255, 0.2);
+  transform: scale(0.98);
+}

@@ -1,0 +1,3 @@
+Place a short click sound named `click.mp3` here to enable UI click sound effects.
+Recommended: a short, low-size MP3 (~5-20 KB) named click.mp3.
+Path used by code: /assets/click.mp3
